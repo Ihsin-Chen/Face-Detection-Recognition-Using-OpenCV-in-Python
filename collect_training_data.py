@@ -40,7 +40,7 @@ faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
 # Capturing real time video stream. 0 for built-in web-cams, 0 or -1 for external web-cams
-video_capture = cv2.VideoCapture(-1)
+video_capture = cv2.VideoCapture(0)
 
 # Initialize img_id with 0
 img_id = 0

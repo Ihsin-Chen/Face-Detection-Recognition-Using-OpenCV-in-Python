@@ -9,6 +9,7 @@ def draw_boundary(img, classifier, scaleFactor, minNeighbors, color, text):
     coords = []
     # drawing rectangle around the feature and labeling it
     for (x, y, w, h) in features:
+        print(type(img))
         cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
         cv2.putText(img, text, (x, y-4), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
         coords = [x, y, w, h]
@@ -37,7 +38,7 @@ noseCascade = cv2.CascadeClassifier('Nariz.xml')
 mouthCascade = cv2.CascadeClassifier('Mouth.xml')
 
 # Capturing real time video stream. 0 for built-in web-cams, 0 or -1 for external web-cams
-video_capture = cv2.VideoCapture(-1)
+video_capture = cv2.VideoCapture(0)
 
 while True:
     # Reading image from video stream

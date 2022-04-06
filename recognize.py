@@ -14,7 +14,7 @@ def draw_boundary(img, classifier, scaleFactor, minNeighbors, color, text, clf):
         id, _ = clf.predict(gray_img[y:y+h, x:x+w])
         # Check for id of user and label the rectangle accordingly
         if id==1:
-            cv2.putText(img, "Ali", (x, y-4), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
+            cv2.putText(img, "Doris", (x, y-4), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 1, cv2.LINE_AA)
         coords = [x, y, w, h]
 
     return coords
@@ -31,10 +31,10 @@ faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 # Loading custom classifier to recognize
 clf = cv2.face.LBPHFaceRecognizer_create()
-clf.read("classifier.yml")
+clf.read("classifier.xml")
 
 # Capturing real time video stream. 0 for built-in web-cams, 0 or -1 for external web-cams
-video_capture = cv2.VideoCapture(-1)
+video_capture = cv2.VideoCapture(0)
 
 while True:
     # Reading image from video stream
