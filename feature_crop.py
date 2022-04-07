@@ -2,13 +2,15 @@ import os
 from PIL import Image
 import numpy as np
 import cv2
+
 def generate_dataset(img, img_id):
     # write image in data dir
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     cv2.imwrite("data_to_crop/img_" +str(img_id)+".jpg", img)
 
 def draw_boundary(img, classifier, scaleFactor, minNeighbors, color, text):
     # Converting image to gray-scale
-    gray_img = cv2.cvtColor(np.float32(img), cv2.COLOR_BGR2GRAY)
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # detecting features in gray-scale image, returns coordinates, width and height of features
     gray_img = np.array(gray_img, dtype='uint8')
     features = classifier.detectMultiScale(gray_img, scaleFactor, minNeighbors)
@@ -20,7 +22,7 @@ def draw_boundary(img, classifier, scaleFactor, minNeighbors, color, text):
 
 
 # Method to detect the features
-def detect_noses(img, faceCascade, img_id):
+def detect_eyes(img, faceCascade, img_id):
     color = {"blue":(255,0,0), "red":(0,0,255), "green":(0,255,0), "white":(255,255,255)}
     coords = draw_boundary(img, faceCascade, 1.1, 10, color['blue'], "Face")
     # If feature is detected, the draw_boundary method will return the x,y coordinates and width and height of rectangle else the length of coords will be 0
@@ -47,7 +49,10 @@ def feature_crop(data_dir):
     for image in path:
         img = Image.open(image)
         imageNp = np.array(img, 'uint8')
-        detect_noses(imageNp, eyesCascade, id)
+        detect_eyes(imageNp, eyesCascade, id)
         id += 1
+        print(id)
 
-feature_crop("data")
+    
+# Change to your dataset directory
+feature_crop("G:/.shortcut-targets-by-id/1tZUcXDBeOibC6jcMCtgRRz67pzrAHeHL/images1024x1024/00000")
